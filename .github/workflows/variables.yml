@@ -15,7 +15,7 @@ on:
 
 # Set env variables
 env:
-  GIT_COMMIT_SHORT: ${{ GITHUB.SHA }}
+  GIT_COMMIT_SHORT: ${{ GITHUB.SHA }} | cut -c1-8
   PROJECT_NAME: ${{ github.repository }}
   DEPENDABOT_PROJECT: a
   IMAGE_NAME: a
