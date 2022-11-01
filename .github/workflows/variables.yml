@@ -45,4 +45,4 @@ jobs:
           echo test, and deploy your project.
       
       - name: test
-        run: echo $GIT_COMMIT_SHORT
+        run: $GITHUB_ACTOR
