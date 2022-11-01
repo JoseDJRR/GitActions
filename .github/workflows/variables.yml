@@ -45,4 +45,4 @@ jobs:
           echo test, and deploy your project.
       
       - name: test
-        run: ${{ env.GIT_COMMIT_SHORT }}
+        run: echo ${{ env.GIT_COMMIT_SHORT }}
