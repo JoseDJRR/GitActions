@@ -17,7 +17,7 @@ on:
 env:
   GIT_COMMIT_SHORT: ${{ GITHUB.SHA }} | cut -c1-8
   PROJECT_NAME: ${{ github.repository }}
-  DEPENDABOT_PROJECT: a
+  DEPENDABOT_PROJECT: ${{ github.repository }}
   IMAGE_NAME: a
   GIT_LOG: a
   GIT_MERGE: a 
@@ -45,4 +45,4 @@ jobs:
           echo test, and deploy your project.
       
       - name: test
-        run: echo ${{ env.GIT_COMMIT_SHORT }}
+        run: echo ${{ env.PROJECT_NAME }}
