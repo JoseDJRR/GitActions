@@ -45,4 +45,4 @@ jobs:
           echo test, and deploy your project.
       
       - name: test
-        run: echo ${${{ env.PROJECT_NAME }}#*_}
+        run: sed 's/^[^/]*_//' <<< ${{ env.PROJECT_NAME }}
