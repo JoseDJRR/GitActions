@@ -16,7 +16,7 @@ on:
 # Set env variables
 env:
   GIT_COMMIT_SHORT: ${{ GITHUB.SHA }} | cut -c1-8
-  PROJECT_NAME: ${{ github.repository }} | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}'
+  PROJECT_NAME: ${{ github.repository }}
   DEPENDABOT_PROJECT: ${{ github.repository }}
   IMAGE_NAME: a
   GIT_LOG: a
@@ -45,4 +45,4 @@ jobs:
           echo test, and deploy your project.
       
       - name: test
-        run: echo ${{ env.PROJECT_NAME }}
+        run: echo "\""${{ env.PROJECT_NAME }}""\" | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}'
