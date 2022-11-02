@@ -16,7 +16,7 @@ on:
 # Set env variables
 env:
   GIT_COMMIT_SHORT: ${{ GITHUB.SHA }} | cut -c1-8
-  PROJECT_NAME: sed 's/^........//' ${{ github.repository }}
+  PROJECT_NAME: ${{ github.repository }} | cut -c6-
   DEPENDABOT_PROJECT: ${{ github.repository }}
   IMAGE_NAME: a
   GIT_LOG: a
