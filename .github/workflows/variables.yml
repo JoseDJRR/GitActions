@@ -45,4 +45,7 @@ jobs:
           echo test, and deploy your project.
       
       - name: test
-        run: echo ${{ env.PROJECT_NAME }} | cut -c 10-
+        run: |
+          echo ${{ env.GIT_COMMIT_SHORT }} | cut -c1-8
+          echo ${{ env.PROJECT_NAME }} | cut -c 10-
+          echo ${{ env.DEPENDABOT_PROJECT }} | cut -c 10-
