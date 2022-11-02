@@ -16,7 +16,7 @@ on:
 # Set env variables
 env:
   GIT_COMMIT_SHORT: ${{ GITHUB.SHA }} | cut -c1-8
-  PROJECT_NAME: ${{ github.repository }}
+  PROJECT_NAME: sed 's/^........//' ${{ github.repository }}
   DEPENDABOT_PROJECT: ${{ github.repository }}
   IMAGE_NAME: a
   GIT_LOG: a
@@ -45,4 +45,4 @@ jobs:
           echo test, and deploy your project.
       
       - name: test
-        run: sed 's/^[^/]*_//' <<< "\""${{ env.PROJECT_NAME }}""\"
+        run: ${{ env.PROJECT_NAME }}
