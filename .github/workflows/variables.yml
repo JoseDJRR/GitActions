@@ -6,6 +6,8 @@ name: variables
 on:
   push:
     branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
   workflow_call:
     outputs:
       git_commit_short:
