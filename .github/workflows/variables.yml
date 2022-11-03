@@ -4,6 +4,9 @@ name: variables
 
 # Controls when the workflow will run
 on:
+  push:
+    branches:
+      [main]
   workflow_call:
     outputs:
       git_commit_short:
