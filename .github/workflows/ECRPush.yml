@@ -1,0 +1,43 @@
+name: ECRPush
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      git_commit_short:
+        description: 'Git commit short value'
+        required: true
+        type: string
+      project_name:
+        description: 'Git Repository name'
+        required: true 
+        type: string 
+      dependabot_project:
+        description: 'Git Repository name'
+        required: true 
+        type: string
+      image_name:
+        description: 'Docker image name'
+        type: string
+        required: true 
+
+jobs:
+  pprint-username:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print the Sha short to STDOUT
+        run: echo The SHA SHORT is ${{ inputs.git_commit_short }}
+      - name: Print the P. N. to STDOUT
+        run: echo The Project name is ${{ inputs.project_name }}
+      - name: Print the Pr. Na. name to STDOUT
+        run: echo The Project name is ${{ inputs.dependabot_project }}
+      - name: Print the Image name to STDOUT
+        run: echo The Image name is ${{ inputs.image_name }}
