@@ -30,7 +30,7 @@ jobs:
       - id: get_image
         run: |
           cd ..
-          ls
+          ls -la
           pwd
         #echo "image_name=`pwd`" >> $GITHUB_OUTPUT
   show_variables:
