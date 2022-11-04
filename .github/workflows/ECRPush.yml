@@ -31,10 +31,13 @@ jobs:
         run: |
           cd ..
           ls -la
+          pwd
           cd ..
           ls -la
+          pwd
           cd ..
           ls -la
+          pwd
         #echo "image_name=`pwd`" >> $GITHUB_OUTPUT
   show_variables:
     runs-on: ubuntu-latest
