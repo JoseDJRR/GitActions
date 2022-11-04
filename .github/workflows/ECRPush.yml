@@ -29,7 +29,7 @@ jobs:
         run: echo "dependabot_project=`echo ${GITHUB_REPOSITORY} | cut -c 10-`" >> $GITHUB_OUTPUT
       - id: get_image
         run: |
-          cd
+          cd ..
           ls
           pwd
         #echo "image_name=`pwd`" >> $GITHUB_OUTPUT
