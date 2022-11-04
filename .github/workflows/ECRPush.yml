@@ -24,9 +24,9 @@ jobs:
       - id: get_hash
         run: echo "git_commit_short=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_OUTPUT
       - id: get_project
-        run: echo "project_name=`echo ${github_repository} | cut -c 10-`" >> $GITHUB_OUTPUT
+        run: echo "project_name=`echo ${GITHUB_REPOSITORY} | cut -c 10-`" >> $GITHUB_OUTPUT
       - id: get_dependabot
-        run: echo "dependabot_project=`echo ${github_repository} | cut -c 10-`" >> $GITHUB_OUTPUT
+        run: echo "dependabot_project=`echo ${GITHUB_REPOSITORY} | cut -c 10-`" >> $GITHUB_OUTPUT
       - id: get_image
         run: echo "image_name=`cat DockerImageName`" >> $GITHUB_OUTPUT
   job2:
