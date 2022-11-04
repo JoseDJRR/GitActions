@@ -14,6 +14,7 @@ jobs:
       project_name: ${{ steps.get_project.outputs.project_name }}
       dependabot_project: ${{ steps.get_dependabot.outputs.dependabot_project }}
       image_name: ${{ steps.get_image.outputs.image_name }}
+      GIT_BRANCH_STANDARD: ${{ steps.get_branch_standard.outputs.GIT_BRANCH_STANDARD }}
     steps:
       - uses: actions/checkout@v3
       - id: get_hash
@@ -24,6 +25,8 @@ jobs:
         run: echo "dependabot_project=`echo ${GITHUB_REPOSITORY} | cut -c 10-`" >> $GITHUB_OUTPUT
       - id: get_image
         run: echo "image_name=`echo Docker/Image/Name`" >> $GITHUB_OUTPUT
+      - id: get_branch_standard
+        run: echo "GIT_BRANCH_STANDARD=`echo ${GITHUB_REF#refs/heads/} | tr / -`" >> $GITHUB_OUTPUT
   show_variables:
     runs-on: ubuntu-latest
     needs: get-variables
@@ -32,12 +35,12 @@ jobs:
       - run: echo ${{needs.get-variables.outputs.project_name}} 
       - run: echo ${{needs.get-variables.outputs.dependabot_project}}
       - run: echo ${{needs.get-variables.outputs.image_name}}
-  integracion-cd:
-    runs-on: ubuntu-latest
-    needs: [get-variables]
-    steps:
-      - run: echo "${{needs.get-variables.outputs.image_name}}" | tr / -
-
-
+      - run: echo ${{needs.get-variables.outputs.GIT_BRANCH_STANDARD}}
+#  integration-cd:
+#    runs-on: ubuntu-latest
+#    needs: [get-variables]
+#    steps:
+#      - name: Deploy fase
+#        run: aws --region us-west-2 lambda invoke --function-name dev-ecs-feature-branch-temp --payload '{ "project":"${{needs.get-variables.outputs.project_name}} ", "branch":"${{needs.get-variables.outputs.GIT_BRANCH_STANDARD}}", "commit":"${{needs.get-variables.outputs.git_commit_short}}"}' responde.json
 
                         
