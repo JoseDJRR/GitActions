@@ -21,6 +21,7 @@ jobs:
       dependabot_project: ${{ steps.get_dependabot.outputs.dependabot_project }}
       image_name: ${{ steps.get_image.outputs.image_name }}
     steps:
+      - uses: actions/checkout@v3
       - id: get_hash
         run: echo "git_commit_short=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_OUTPUT
       - id: get_project
