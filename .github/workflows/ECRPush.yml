@@ -28,7 +28,8 @@ jobs:
       - id: get_dependabot
         run: echo "dependabot_project=`echo ${GITHUB_REPOSITORY} | cut -c 10-`" >> $GITHUB_OUTPUT
       - id: get_image
-        run: echo "image_name=`pwd`" >> $GITHUB_OUTPUT
+        run: ls
+          #echo "image_name=`pwd`" >> $GITHUB_OUTPUT
   job2:
     runs-on: ubuntu-latest
     needs: job1
