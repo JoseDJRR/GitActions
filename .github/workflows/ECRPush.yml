@@ -19,7 +19,8 @@ jobs:
       TEAM_NAME: ${{ steps.get_branch_standard.outputs.TEAM_NAME }}
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/dotenv-action
+      - name: get env
+        uses: ./.github/actions/dotenv-action
       - id: get_hash
         run: echo "GIT_COMMIT_SHORT=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_OUTPUT
       - id: get_project
