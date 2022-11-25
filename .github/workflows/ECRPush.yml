@@ -15,7 +15,7 @@ jobs:
       DEPENDABOT_PROJECT: ${{ steps.get_dependabot.outputs.dependabot_project }}
       LAMBDA_NAME: ${{ steps.get_image.outputs.LAMBDA_NAME }}
       GIT_BRANCH_STANDARD: ${{ steps.get_branch_standard.outputs.GIT_BRANCH_STANDARD }}
-      TEMPLATE_FILE: ${{ steps.get_branch_standard.outputs.TEMPLATE_FILE }}
+      TEMPLATE_FILE: ${{ steps.get_template_file.outputs.TEMPLATE_FILE }}
       TEAM_NAME: ${{ steps.get_team_name.outputs.TEAM_NAME }}
     steps:
       - uses: actions/checkout@v3
