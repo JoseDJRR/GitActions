@@ -21,6 +21,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Checking based Lambda
         run: |
+          echo Hi
           cat template.yaml | grep nodejs >> result.txt
           ls -la
       - id: get_hash
