@@ -19,6 +19,10 @@ jobs:
       TEAM_NAME: ${{ steps.get_team_name.outputs.TEAM_NAME }}
     steps:
       - uses: actions/checkout@v3
+      - name: Checking based Lambda
+        run: |
+          cat template.y* | grep nodejs >> result.txt
+          ls -la
       - id: get_hash
         run: echo "GIT_COMMIT_SHORT=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_OUTPUT
       - id: get_project
