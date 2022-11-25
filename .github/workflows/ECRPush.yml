@@ -16,7 +16,7 @@ jobs:
       LAMBDA_NAME: ${{ steps.get_image.outputs.LAMBDA_NAME }}
       GIT_BRANCH_STANDARD: ${{ steps.get_branch_standard.outputs.GIT_BRANCH_STANDARD }}
       TEMPLATE_FILE: ${{ steps.get_branch_standard.outputs.TEMPLATE_FILE }}
-      TEAM_NAME: ${{ steps.get_branch_standard.outputs.TEAM_NAME }}
+      TEAM_NAME: ${{ steps.get_team_name.outputs.TEAM_NAME }}
     steps:
       - uses: actions/checkout@v3
       - id: get_hash
@@ -32,7 +32,7 @@ jobs:
       - id: get_template_file
         run: echo "TEMPLATE_FILE=`$(echo find . -maxdepth 1 -name template.y*)`" >> $GITHUB_OUTPUT
       - id: get_team_name
-        run: echo "TEAM_NAME=`$(echo grep TEAM_NAME deployment.env)`" >> $GITHUB_OUTPUT
+        run: echo "TEAM_NAME=`printf $(grep TEAM_NAME deployment.env | xargs)`" >> $GITHUB_OUTPUT
   show_variables:
     runs-on: ubuntu-latest
     needs: get-variables
