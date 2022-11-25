@@ -42,7 +42,7 @@ jobs:
       - run: echo ${{needs.get-variables.outputs.DEPENDABOT_PROJECT}}
       - run: echo ${{needs.get-variables.outputs.LAMBDA_NAME}}
       - run: echo ${{needs.get-variables.outputs.GIT_BRANCH_STANDARD}}
-      - run: echo ${{needs.get-variables.outputs.LAMBDA_NAME}}
+      - run: echo ${{needs.get-variables.outputs.TEMPLATE_FILE}}
       - run: echo ${{needs.get-variables.outputs.TEAM_NAME}}
 #  integration-cd:
 #    runs-on: ubuntu-latest
