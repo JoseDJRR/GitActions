@@ -30,7 +30,7 @@ jobs:
       - id: get_branch_standard
         run: echo "GIT_BRANCH_STANDARD=`echo ${GITHUB_REF#refs/heads/} | tr / -`" >> $GITHUB_OUTPUT
       - id: get_template_file
-        run: echo "TEMPLATE_FILE=`echo $(find . -maxdepth 1 -name template.y*)`" >> $GITHUB_OUTPUT
+        run: echo "TEMPLATE_FILE=`$(echo find . -maxdepth 1 -name template.y*)`" >> $GITHUB_OUTPUT
       - id: get_team_name
         run: |
           echo $(grep TEAM_NAME deployment.env)
