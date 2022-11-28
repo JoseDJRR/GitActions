@@ -34,15 +34,15 @@ jobs:
         run: echo "TEMPLATE_FILE=`$(echo find . -maxdepth 1 -name template.y*)`" >> $GITHUB_OUTPUT
       - id: get_team_name
         run: echo "TEAM_NAME=`printf $(grep TEAM_NAME deployment.env | xargs)`" >> $GITHUB_OUTPUT
-      #- id: get_is_node
-       # run: |
-        #  grep nodejs template.y* >> result.txt
-         # cat result.txt
-          #if [ -s result.txt]; 
-          #then
-           # echo "ISITNODE=TRUE" >> $GITHUB_OUTPUT
-          #else
-           # echo "ISITNODE=FALSE" >> $GITHUB_OUTPUT
+      - id: get_is_node
+        run: |
+         (grep nodejs template.y* >> result.txt) || (touch result.txt)
+          if [ -s result.txt ];
+          then
+            echo "ISITNODE=TRUE"
+          else
+            echo "ISITNODE=FALSE"
+          fi
       
   show_variables:
     runs-on: ubuntu-latest
