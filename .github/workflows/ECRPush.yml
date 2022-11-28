@@ -39,9 +39,9 @@ jobs:
          (grep nodejs template.y* >> result.txt) || (touch result.txt)
           if [ -s result.txt ];
           then
-            echo "ISITNODE=TRUE"
+            echo "ISITNODE=TRUE" >> $GITHUB_OUTPUT
           else
-            echo "ISITNODE=FALSE"
+            echo "ISITNODE=FALSE" >> $GITHUB_OUTPUT
           fi
       
   show_variables:
