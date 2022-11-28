@@ -38,6 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: get-variables
     steps:
+      - uses: actions/checkout@v3
       - run: echo ${{needs.get-variables.outputs.GIT_COMMIT_SHORT}}
       - run: echo ${{needs.get-variables.outputs.PROJECT_NAME}} 
       - run: echo ${{needs.get-variables.outputs.DEPENDABOT_PROJECT}}
