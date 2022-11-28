@@ -23,7 +23,7 @@ jobs:
         run: |
           echo Hi
           ls -la
-          cat template.yaml | grep nodejs >> result.txt
+          (cat template.yaml | grep nodejs >> result.txt)
       - id: get_hash
         run: echo "GIT_COMMIT_SHORT=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_OUTPUT
       - id: get_project
