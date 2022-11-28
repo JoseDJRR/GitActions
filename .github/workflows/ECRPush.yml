@@ -35,7 +35,7 @@ jobs:
         run: echo "TEAM_NAME=`printf $(grep TEAM_NAME deployment.env | xargs)`" >> $GITHUB_OUTPUT
       - name: Checking based Lambda
         run: |
-          (cat template.yaml | grep nodejs) >> result.txt
+          cat template.yaml | echo (grep nodejs)
         shell: bash
   show_variables:
     runs-on: ubuntu-latest
