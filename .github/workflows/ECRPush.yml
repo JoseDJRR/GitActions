@@ -60,12 +60,7 @@ jobs:
       - name: Checking based Lambda
         run: |
           grep nodejs template.y* >> result.txt
-          if [ -s result.txt ];
-          then
-            echo "OK"
-          else
-            echo "F"
-          fi
+          
             
 #  integration-cd:
 #    runs-on: ubuntu-latest
