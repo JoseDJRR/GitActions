@@ -36,6 +36,7 @@ jobs:
       - name: Checking based Lambda
         run: |
           (cat template.yaml | grep nodejs) >> result.txt
+        shell: bash
   show_variables:
     runs-on: ubuntu-latest
     needs: get-variables
