@@ -34,14 +34,15 @@ jobs:
         run: echo "TEMPLATE_FILE=`$(echo find . -maxdepth 1 -name template.y*)`" >> $GITHUB_OUTPUT
       - id: get_team_name
         run: echo "TEAM_NAME=`printf $(grep TEAM_NAME deployment.env | xargs)`" >> $GITHUB_OUTPUT
-      - id: get_is_node
-        run: |
-          grep nodejs template.y* >> result.txt
-          cat result.txt
-          if [ -s result.txt]; then
-            echo "ISITNODE=TRUE" >> $GITHUB_OUTPUT
-          else
-            echo "ISITNODE=FALSE" >> $GITHUB_OUTPUT
+      #- id: get_is_node
+       # run: |
+        #  grep nodejs template.y* >> result.txt
+         # cat result.txt
+          #if [ -s result.txt]; 
+          #then
+           # echo "ISITNODE=TRUE" >> $GITHUB_OUTPUT
+          #else
+           # echo "ISITNODE=FALSE" >> $GITHUB_OUTPUT
       
   show_variables:
     runs-on: ubuntu-latest
@@ -56,13 +57,14 @@ jobs:
       - run: echo ${{needs.get-variables.outputs.TEMPLATE_FILE}}
       - run: echo ${{needs.get-variables.outputs.TEAM_NAME}}
       - run: echo ${{needs.get-variables.outputs.ISITNODE}}
-      #- name: Checking based Lambda
-      #  run: |
-      #    grep nodejs template.y* >> result.txt
-      #    cat result.txt
-      #    if [ -s result.txt]; then
-      #      a
-      #    else
+      - name: Checking based Lambda
+        run: |
+          grep nodejs template.y* >> result.txt
+          cat result.txt
+          if [ -s result.txt]; then
+            echo "OK"
+          else
+            echo "F"
             
 #  integration-cd:
 #    runs-on: ubuntu-latest
