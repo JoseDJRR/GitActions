@@ -60,7 +60,6 @@ jobs:
       - name: Checking based Lambda
         run: |
           grep nodejs template.y* >> result.txt
-          #cat result.txt
           if [ -s result.txt ];
           then
             echo "OK"
