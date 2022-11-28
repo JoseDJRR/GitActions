@@ -17,6 +17,7 @@ jobs:
       GIT_BRANCH_STANDARD: ${{ steps.get_branch_standard.outputs.GIT_BRANCH_STANDARD }}
       TEMPLATE_FILE: ${{ steps.get_template_file.outputs.TEMPLATE_FILE }}
       TEAM_NAME: ${{ steps.get_team_name.outputs.TEAM_NAME }}
+      ISITNODE: ${{ steps.get_is_node.outputs.ISITNODE}}
     steps:
       - uses: actions/checkout@v3
       - id: get_hash
@@ -33,6 +34,14 @@ jobs:
         run: echo "TEMPLATE_FILE=`$(echo find . -maxdepth 1 -name template.y*)`" >> $GITHUB_OUTPUT
       - id: get_team_name
         run: echo "TEAM_NAME=`printf $(grep TEAM_NAME deployment.env | xargs)`" >> $GITHUB_OUTPUT
+      - id: get_is_node
+        run: |
+          grep nodejs template.y* >> result.txt
+          cat result.txt
+          if [ -s result.txt]; then
+            echo "ISITNODE=TRUE" >> $GITHUB_OUTPUT
+          else
+            echo "ISITNODE=FALSE" >> $GITHUB_OUTPUT
       
   show_variables:
     runs-on: ubuntu-latest
@@ -46,10 +55,15 @@ jobs:
       - run: echo ${{needs.get-variables.outputs.GIT_BRANCH_STANDARD}}
       - run: echo ${{needs.get-variables.outputs.TEMPLATE_FILE}}
       - run: echo ${{needs.get-variables.outputs.TEAM_NAME}}
-      - name: Checking based Lambda
-        run: |
-          grep nodejs template.y* >> result.txt
-          cat result.txt
+      - run: echo ${{needs.get-variables.outputs.ISITNODE}}
+      #- name: Checking based Lambda
+      #  run: |
+      #    grep nodejs template.y* >> result.txt
+      #    cat result.txt
+      #    if [ -s result.txt]; then
+      #      a
+      #    else
+            
 #  integration-cd:
 #    runs-on: ubuntu-latest
 #    needs: [get-variables]
