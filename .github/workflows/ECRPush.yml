@@ -22,8 +22,8 @@ jobs:
       - name: Checking based Lambda
         run: |
           echo Hi
-          cat template.yaml | grep nodejs >> result.txt
           ls -la
+          cat template.yaml | grep nodejs >> result.txt
       - id: get_hash
         run: echo "GIT_COMMIT_SHORT=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_OUTPUT
       - id: get_project
