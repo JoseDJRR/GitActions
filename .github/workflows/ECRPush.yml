@@ -47,7 +47,7 @@ jobs:
       - run: echo ${{needs.get-variables.outputs.TEMPLATE_FILE}}
       - run: echo ${{needs.get-variables.outputs.TEAM_NAME}}
       - name: Checking based Lambda
-        run: /bin/bash -c "cat template.yaml | xargs grep nodejs >> result.txt"
+        run: /bin/bash -c "cat template.yaml | xargs grep 'nodejs' >> result.txt"
 #  integration-cd:
 #    runs-on: ubuntu-latest
 #    needs: [get-variables]
