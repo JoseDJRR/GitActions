@@ -53,7 +53,7 @@ jobs:
       - run: |
           COUNT_SERVERLESS_WORD=`grep -o -i AWS::Serverless::Function template.y* | wc -l`
           COUNT_CONCURRENCY_WORD=`grep -o -i ReservedConcurrentExecutions template.y* | wc -l`
-          if[$COUNT_CONCURRENCY_WORD -ge $COUNT_SERVERLESS_WORD];
+          if[ $COUNT_CONCURRENCY_WORD -ge $COUNT_SERVERLESS_WORD ];
           then
             echo "ReservedConcurrentExecutions Lambda parameter configured"
           else
