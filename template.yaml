@@ -7,7 +7,6 @@ Resources:
       Runtime: nodejs14.x
       Tracing: Active
       MemorySize: 1024
-      ReservedConcurrentExecutions: 20
       Environment:
         Variables:
           ENDPOINT: !Ref endpoint
