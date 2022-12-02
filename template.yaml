@@ -15,3 +15,111 @@ Resources:
           ENVIRONMENT: !Ref Environment
           LOG_LEVEL: !Ref LogLevel
           AWSREGION: !Ref AWS::Region
+      Policies:
+        - AWSLambdaVPCAccessExecutionRole
+        - Statement:
+          - Action:
+              - "dynamodb:PutItem"
+              - "lambda:InvokeFunction"
+            Effect: Allow
+            Resource:
+              - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${MerchantsTableName}"
+      FunctionName:
+        Fn::Sub: ${Environment}-public-profile-file-processing-write-ddb
+
+  MerchantsRead:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src
+      Handler: readHandler.handler
+      Runtime: nodejs14.x
+      Tracing: Active
+      MemorySize: 1024
+      ReservedConcurrentExecutions: 20
+      Environment:
+        Variables:
+          ENDPOINT: !Ref endpoint
+          ENVIRONMENT: !Ref Environment
+          LOG_LEVEL: !Ref LogLevel
+          AWSREGION: !Ref AWS::Region
+          DB_TABLE_NAME: !Ref MerchantsTableName
+      Policies:
+        - AWSLambdaVPCAccessExecutionRole
+        - Statement:
+            - Action:
+                - "dynamodb:GetItem"
+                - "lambda:InvokeFunction"
+              Effect: Allow
+              Resource:
+                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${MerchantsTableName}"
+      FunctionName:
+        Fn::Sub: ${Environment}-public-profile-file-processing-read-ddb
+
+  MerchantsUpdate:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src
+      Handler: updateHandler.handler
+      Runtime: nodejs14.x
+      Tracing: Active
+      MemorySize: 1024
+      ReservedConcurrentExecutions: 20
+      Environment:
+        Variables:
+          ENDPOINT: !Ref endpoint
+          ENVIRONMENT: !Ref Environment
+          LOG_LEVEL: !Ref LogLevel
+          AWSREGION: !Ref AWS::Region
+          DB_TABLE_NAME: !Ref MerchantsTableName
+      Policies:
+        - AWSLambdaVPCAccessExecutionRole
+        - Statement:
+            - Action:
+                - "dynamodb:UpdateItem"
+                - "lambda:InvokeFunction"
+              Effect: Allow
+              Resource:
+                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${MerchantsTableName}"
+      FunctionName:
+        Fn::Sub: ${Environment}-public-profile-file-processing-update-ddb
+
+  PublicProfileBucketUpload:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src
+      Handler: uploadHandler.handler
+      Runtime: nodejs14.x
+      Tracing: Active
+      MemorySize: 1024
+      ReservedConcurrentExecutions: 20
+      Environment:
+        Variables:
+          ENDPOINT: !Ref endpoint
+          S3_BUCKET_NAME: !Sub  "${PublicProfileBucketName}"
+          ENVIRONMENT: !Ref Environment
+          LOG_LEVEL: !Ref LogLevel
+          AWSREGION: !Ref AWS::Region
+          LAMBDA_UPDATE_NAME: !Sub "${LambdaUpdateName}"
+          BUCKET_DNS: !Sub "${BucketDNS}"
+      Policies:
+        - AWSLambdaVPCAccessExecutionRole
+        - Statement:
+          - Action:
+              - 's3:*'
+              - 's3:PutObjectAcl'
+              - 's3:DeleteObject'
+              - 's3:DeleteObjectAcl'
+              - 's3:GetObject'
+              - 's3:GetObjectAcl'
+            Effect: Allow
+            Resource:
+              - !Sub 'arn:aws:s3:::${PublicProfileBucketName}/*'
+              - !Sub 'arn:aws:s3:::${PublicProfileBucketName}'
+          - Effect: Allow
+            Action:
+              - lambda:GetFunction
+              - lambda:InvokeFunction
+            Resource:
+              - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${Environment}-public-profile-file-processing-update-ddb"
+      FunctionName:
+        Fn::Sub: ${Environment}-public-profile-file-processing-upload-s3
