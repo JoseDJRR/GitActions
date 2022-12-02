@@ -57,7 +57,7 @@ jobs:
           then
             echo "ReservedConcurrentExecutions Lambda parameter configured"
           else
-            echo "mega F"
+            echo "::error ::ERROR: ReservedConcurrentExecutions Lambda parameter not configured" && exit 1
           fi
             
 #  integration-cd:
