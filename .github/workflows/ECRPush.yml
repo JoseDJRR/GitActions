@@ -52,6 +52,7 @@ jobs:
       - run: echo ${{needs.get-variables.outputs.GIT_COMMIT_SHORT}}
       - run: |
           TEST=`grep -o -i AWS::Serverless::Function template.y* | wc -l`
+          echo "Hola"
           echo "$TEST"
       - run: grep -o -i ReservedConcurrentExecutions template.y* | wc -l
             
