@@ -51,10 +51,13 @@ jobs:
       - uses: actions/checkout@v3
       - run: echo ${{needs.get-variables.outputs.GIT_COMMIT_SHORT}}
       - run: |
-          TEST=`grep -o -i AWS::Serverless::Function template.y* | wc -l`
-          echo "Hola"
-          echo "$TEST"
-      - run: grep -o -i ReservedConcurrentExecutions template.y* | wc -l
+          COUNT_SERVERLESS_WORD=`grep -o -i AWS::Serverless::Function template.y* | wc -l`
+          COUNT_CONCURRENCY_WORD=`grep -o -i ReservedConcurrentExecutions template.y* | wc -l`
+          if[];
+          then
+            echo "ReservedConcurrentExecutions Lambda parameter configured"
+          else
+            echo "mega F"
             
 #  integration-cd:
 #    runs-on: ubuntu-latest
