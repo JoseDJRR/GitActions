@@ -50,22 +50,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: echo ${{needs.get-variables.outputs.GIT_COMMIT_SHORT}}
-      - run: echo ${{needs.get-variables.outputs.PROJECT_NAME}} 
-      - run: echo ${{needs.get-variables.outputs.DEPENDABOT_PROJECT}}
-      - run: echo ${{needs.get-variables.outputs.LAMBDA_NAME}}
-      - run: echo ${{needs.get-variables.outputs.GIT_BRANCH_STANDARD}}
-      - run: echo ${{needs.get-variables.outputs.TEMPLATE_FILE}}
-      - run: echo ${{needs.get-variables.outputs.TEAM_NAME}}
-      - run: echo ${{needs.get-variables.outputs.ISITNODE}}
-      - name: Checking based Lambda
-        run: |
-          (grep nodejs template.y* >> result.txt) || (touch result.txt)
-          if [ -s result.txt ];
-          then
-            echo "OK"
-          else
-            echo "F"
-          fi
+      - run: echo (grep -o -i AWS::Serverless::Function template.y* | wc -l)
+      - run: echo (grep -o -i ReservedConcurrentExecutions template.y* | wc -l)
             
 #  integration-cd:
 #    runs-on: ubuntu-latest
@@ -75,25 +61,3 @@ jobs:
 #        run: aws --region us-west-2 lambda invoke --function-name dev-ecs-feature-branch-temp --payload '{ "project":"${{needs.get-variables.outputs.project_name}} ", "branch":"${{needs.get-variables.outputs.GIT_BRANCH_STANDARD}}", "commit":"${{needs.get-variables.outputs.git_commit_short}}"}' responde.json
 
 
-void run(Script script) {
-        def COUNT_SERVERLESS_WORD 
-        def COUNT_CONCURRENCY_WORD
-
-        COUNT_SERVERLESS_WORD = script.sh (
-            script: "grep -o -i AWS::Serverless::Function template.y* | wc -l",
-            returnStdout: true
-        ).trim()
-
-        COUNT_CONCURRENCY_WORD = script.sh (
-            script: "grep -o -i ReservedConcurrentExecutions template.y* | wc -l",
-            returnStdout: true
-        ).trim()
-
-        if (COUNT_CONCURRENCY_WORD >= COUNT_SERVERLESS_WORD){
-            script.sh("echo 'ReservedConcurrentExecutions Lambda parameter configured'")
-        }
-        else{
-            script.sh("echo 'ERROR: ReservedConcurrentExecutions Lambda parameter not configured'")
-            script.sh('exit 1')
-        }
-    }
