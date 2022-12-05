@@ -18,6 +18,7 @@ jobs:
       TEMPLATE_FILE: ${{ steps.get_template_file.outputs.TEMPLATE_FILE }}
       TEAM_NAME: ${{ steps.get_team_name.outputs.TEAM_NAME }}
       ISITNODE: ${{ steps.get_is_node.outputs.ISITNODE}}
+      TEST: ${{ steps.this_is_a_test.outputs.TEST}}
     steps:
       - uses: actions/checkout@v3
       - id: get_hash
@@ -34,6 +35,8 @@ jobs:
         run: echo "TEMPLATE_FILE=`$(echo find . -maxdepth 1 -name template.y*)`" >> $GITHUB_OUTPUT
       - id: get_team_name
         run: echo "TEAM_NAME=`printf $(grep TEAM_NAME deployment.env | xargs)`" >> $GITHUB_OUTPUT
+      - id: this_is_a_test
+        run: echo "TEST= ${{ secrets.TEST }}"
       - id: get_is_node
         run: |
          (grep nodejs template.y* >> result.txt) || (touch result.txt)
@@ -50,6 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: echo ${{needs.get-variables.outputs.GIT_COMMIT_SHORT}}
+      - run: echo ${{needs.get-variables.outputs.TEST}}
       - run: |
           COUNT_SERVERLESS_WORD=`grep -o -i AWS::Serverless::Function template.y* | wc -l`
           COUNT_CONCURRENCY_WORD=`grep -o -i ReservedConcurrentExecutions template.y* | wc -l`
